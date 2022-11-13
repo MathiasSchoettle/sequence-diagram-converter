@@ -3,3 +3,6 @@
 
 # IntelliJ
 out/
+
+# java
+target/
