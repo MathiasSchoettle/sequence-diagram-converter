@@ -2,14 +2,18 @@
   "lifelines" : [
     {
       "name" : "lifeline_1",
-      "gates" : ["g_1", "g_2", "g_3"]
+      "gates" : ["g_3"]
     },
     {
       "name" : "lifeline_2",
-      "gates" : ["g_4", "g_5"]
+      "gates" : ["g_1", "g_2"]
     },
     {
       "name" : "lifeline_3",
+      "gates" : ["g_4", "g_5"]
+    },
+    {
+      "name" : "lifeline_4",
       "gates" : ["g_6"]
     }
   ],
@@ -20,13 +24,13 @@
       "type" : "ASYNCHRONOUS"
     },
     {
-      "source" : "g_5",
-      "target" : "g_6",
+      "source" : "g_2",
+      "target" : "g_3",
       "type" : "ASYNCHRONOUS"
     },
     {
-      "source" : "g_6",
-      "target" : "g_3",
+      "source" : "g_5",
+      "target" : "g_6",
       "type" : "ASYNCHRONOUS"
     }
   ]

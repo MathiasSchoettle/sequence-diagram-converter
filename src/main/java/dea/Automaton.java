@@ -1,9 +1,8 @@
 package dea;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.io.*;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Automaton {
     public List<State> states = new ArrayList<>();
@@ -27,6 +26,11 @@ public class Automaton {
         return this;
     }
 
+    public State getLast() {
+        return states.get(states.size() - 1);
+    }
+
+    @SuppressWarnings("UnusedReturnValue")
     public Automaton addTransition(String fromId, String toId, String label) {
         Optional<State> fromOptional = states.stream().filter(s -> s.id.equals(fromId)).findFirst();
         Optional<State> toOptional = states.stream().filter(s -> s.id.equals(toId)).findFirst();
@@ -45,6 +49,7 @@ public class Automaton {
         return this;
     }
 
+    @SuppressWarnings("unused")
     public void process(String[] labels) {
         Arrays.stream(labels).forEach(this::next);
     }
@@ -73,12 +78,40 @@ public class Automaton {
         log.add(logString);
     }
 
+    @SuppressWarnings("unused")
     public void printRun() {
         log.forEach(System.out::println);
     }
 
-    public void exportToGraphviz() {
-        // TODO implement pls
-        throw new UnsupportedOperationException("Not implemented yet");
+    public void exportToGraphviz(String fileName) {
+        var file = new File(System.getProperty("user.home"), fileName + ".gv.txt ");
+
+        try(var os = new FileOutputStream(file)) {
+            var writer = new BufferedWriter(new OutputStreamWriter(os));
+
+            writer.write("digraph " + fileName + "{\n");
+            writer.write("\tfontname=\"Helvetica,Arial,sans-serif\"\n");
+            writer.write("\tnode [fontname=\"Helvetica,Arial,sans-serif\"]\n");
+            writer.write("\tedge [fontname=\"Helvetica,Arial,sans-serif\"]\n");
+            writer.write("\trankdir=LR;\n");
+
+            String finiteStateIds = states.stream()
+                    .filter(s -> s.type.equals(State.StateType.FINAL))
+                    .map(s -> s.id)
+                    .collect(Collectors.joining(" "));
+
+            writer.write("\tnode [shape = doublecircle]; " + finiteStateIds + ";\n");
+            writer.write("\tnode [shape = circle];\n");
+
+            for (var t : transitions) {
+                writer.write("\t" + t.from.id + " -> " + t.to.id + " [label = \"" + t.label + "\"];\n");
+            }
+
+            writer.write("}");
+            writer.close();
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
