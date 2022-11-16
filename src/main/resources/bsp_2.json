@@ -1,0 +1,28 @@
+{
+  "lifelines" : [
+    {
+      "name" : "a",
+      "gates" : ["g_1"]
+    },
+    {
+      "name" : "b",
+      "gates" : ["g_2"]
+    },
+    {
+      "name" : "c",
+      "gates" : ["g_3"]
+    }
+  ],
+  "messages" : [
+    {
+      "source" : "g_1",
+      "target" : "g_2",
+      "type" : "ASYNCHRONOUS"
+    },
+    {
+      "source" : "g_2",
+      "target" : "g_3",
+      "type" : "ASYNCHRONOUS"
+    }
+  ]
+}

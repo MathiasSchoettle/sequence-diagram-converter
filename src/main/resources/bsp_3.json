@@ -1,0 +1,38 @@
+{
+  "lifelines" : [
+    {
+      "name" : "a",
+      "gates" : ["g_1", "g_5"]
+    },
+    {
+      "name" : "b",
+      "gates" : ["g_2", "g_4"]
+    },
+    {
+      "name" : "c",
+      "gates" : ["g_3", "g_6"]
+    }
+  ],
+  "messages" : [
+    {
+      "source" : "g_1",
+      "target" : "g_2",
+      "type" : "ASYNCHRONOUS"
+    },
+    {
+      "source" : "g_3",
+      "target" : "g_2",
+      "type" : "ASYNCHRONOUS"
+    },
+    {
+      "source" : "g_4",
+      "target" : "g_5",
+      "type" : "ASYNCHRONOUS"
+    },
+    {
+      "source" : "g_4",
+      "target" : "g_6",
+      "type" : "ASYNCHRONOUS"
+    }
+  ]
+}
